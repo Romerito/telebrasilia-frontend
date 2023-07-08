@@ -1,0 +1,156 @@
+<app-header></app-header>
+<section >
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+
+      <!-- Novo chamado -->
+      <div class="d-flex justify-content-center">
+       <tr>
+        <td><form (ngSubmit)="novoChamado()" *ngIf="showNovoChamado">
+          <div class="text-primary pt-4">
+            <button type="submit" class="btn btn-success btn float-right" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+              Novo Chamado</button>
+          </div>
+        </form></td>
+        <td><form  (ngSubmit)="onConsultar()" *ngIf="showNovoChamado">
+          <div class="text-primary pt-4">
+            <button type="submit" class="btn btn-success btn float-right" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+              Consultar Chamados</button>
+          </div>
+        </form></td>
+       </tr>
+       </div>
+       <div class="col-md-8 col-lg-6 col-xl-8 offset-xl-0">
+        <br>
+        <br>
+          <!-- Criar chamado -->
+        <form [formGroup]="chamadoForm" (ngSubmit)="onSubmit()" *ngIf="showFormChamado">
+          <div class="form-outline mb-2">
+            <h6> <label for="titulo" class="form-label text-primary">Tipo do chamado</label></h6>
+
+            <select class="form-select" formControlName="titulo" (ngModelChange)="setCleanTitulo()">
+              <option>Sem acesso</option>
+              <option>Acesso lento</option>
+              <option>Mudança de Plano</option>
+              <option>Mudança de endereço</option>
+              <option> Outros assuntos</option>
+            </select>
+            
+          </div>
+          <label class="text-danger">{{titulo}}</label>
+          <div class="form-outline mb-2">
+            <h6> <label for="descricao" class="form-label text-primary">Descrição do chamado</label></h6>
+            <textarea class="form-control" id="descricao" name="descricao" rows="6" formControlName="descricao"
+              (ngModelChange)="setCleanDescricao()"></textarea>
+            </div>
+            <label class="text-danger">{{descricao}}</label>
+          <div>
+            <h6> <label for="arquivo" class="form-label text-primary">Anexar arquivo</label></h6>
+            <input class="form-control text-primary " id="arquivo" name="arquivo" type="file" formControlName="arquivo">
+          </div>
+          
+          <div class="row d-flex justify-content-center text-center pt-4">
+            <button type="submit" class="btn btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+              Criar Chamado</button>
+          </div>
+          
+          <form (ngSubmit)="cancelarChamado()">
+            <div class="row d-flex justify-content-center text-center pt-4">
+              <button type="submit" class="btn btn-light" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                Cancelar</button>
+            </div>
+          </form>
+        </form>
+        <div class="alert alert-success" role="alert" *ngIf="showMessageCreate">
+          <h6 class="alert-heading">Chamado criado com com sucesso!</h6>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<!-- </section>
+<br>
+<br>
+<br>
+<section> -->
+  <div class="row d-flex justify-content-center align-items-center" *ngIf="listarChamado">
+    <div class="col-md-8">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">
+              <div class="form-outline">
+                <input type="search" class="form-control" placeholder="Filtrar" aria-label="Filtrar" />
+              </div>
+
+            </th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">
+              <select class="form-select">
+                <option selected>Filtrar</option>
+                <option value="1">Aberto</option>
+                <option value="2">Andamento</option>
+                <option value="3">Fechado</option>
+              </select>
+            </th>
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th scope="col">Protocolo</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Arquivo</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0000000000</td>
+            <td>Sem acesso</td>
+            <td>Sem acesso a internet</td>
+            <td>Arquivo</td>
+            <td>Aberto</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td>0000000000</td>
+            <td>Sem acesso</td>
+            <td>Identificando defeito</td>
+            <td>N/A</td>
+            <td>Andamento</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td>0000000000</td>
+            <td>Sem acesso</td>
+            <td>Defeito corrigido</td>
+            <td>Arquivo</td>
+            <td>Andamento</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <nav aria-label="Paginas de chamados">
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <span class="page-link">Anterior</span>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item active" aria-current="page">
+            <span class="page-link">2</span>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Próxima</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

@@ -1,0 +1,100 @@
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <!-- Imgagem Logo -->  
+        <div class="col-md-8 col-lg-5 col-xl-3">
+          <img src="../../assets/images/telebrasilia.png"
+            class="img-fluid" alt="Sample image">
+        </div>
+
+        <!-- Login -->
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form [formGroup]="loginForm"  (ngSubmit)="onSubmit()"  *ngIf="login">
+            <div class="form-outline mb-4">
+              <input type="text" id="cnpj" name="cnpj" class="form-control" maxlength="14"
+                placeholder="Digite o cnpj" formControlName="cnpj" (ngModelChange)="setCleanCnpj()" />
+                <label class="text-danger">{{cnpj}}</label>
+            </div>
+  
+            <div class="form-outline mb-3">
+              <input type="password" id="senha" name="senha" class="form-control"
+                placeholder="Digite a senha" formControlName="senha" (ngModelChange)="setCleanSenha()"/>
+                <label class="text-danger">{{senha}}</label>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="form-check mb-0">
+                <input class="form-check-input me-2" type="checkbox" value="" id="remeberme" name="remeberme" formControlName="remeberme"/>
+                <label class="form-check-label" class="text-center"> Lembre de mim
+                </label>
+              </div>
+              <form #login="ngForm" (ngSubmit)="setForgotPassword()">
+                <div class="text-center"><button type="submit"  class="btn btn-link"  >Esqueceu sua senha?</button></div>
+              </form>
+            </div>
+            <div class="row d-flex justify-content-center text-center pt-4">
+              <button type="submit" class="btn btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                Entrar</button>
+            </div>
+          </form>
+          <br>
+          <!-- Esqueceu a senha -->
+          <form [formGroup]="loginForm"  (ngSubmit)="getPassword()" *ngIf="forgotPassword">
+            <div class="form-outline mb-4" >
+              <input type="text" id="cnpj" class="form-control" maxlength="14"
+                placeholder="Digite o cnpj" name="cnpj" formControlName="cnpj" (ngModelChange)="setCleanCnpj()">
+                <label class="text-danger">{{cnpj}}</label>
+              </div>
+              <div class="row d-flex justify-content-center text-center pt-4">
+                <button type="submit" class="btn btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                  Enviar</button>
+              </div>
+              <form (ngSubmit)="cancelarEnvioEmail()">
+                <div class="row d-flex justify-content-center text-center pt-4">
+                  <button type="submit" class="btn btn-light" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                    Cancelar</button>
+                </div>
+              </form>     
+            </form>
+            <div class="form-outline mb-4" *ngIf="sendPassord">
+              <br>
+              <h5><label class="text-success">Senha enviada para o email romerito.alencar@gmail.com!</label></h5>
+              <br>
+              <form #homeLogin="ngForm" (ngSubmit)="setLogin()">
+                <div class="text-left"><button type="submit"  class="btn btn-link" >Clique aqui para fazer login</button></div>
+              </form>
+            </div>
+            <div class="form-outline mb-4" *ngIf="errorSendPassord">
+              <br>
+              <h6><label class="text-danger">Não encontrou o CNPJ informado!</label></h6>
+              <br>
+            </div>
+          <!-- Salvar senha -->
+          <form  [formGroup]="loginForm"  (ngSubmit)="savePasswords()"  *ngIf="savePassword">
+            <div class="form-outline mb-4">
+              <input type="password" id="senha" name="senha" class="form-control form-control-lg"
+                placeholder="Digite a senha" formControlName="senha" (ngModelChange)="setCleanSenha()">
+                <label class="text-danger">{{senha}}</label>
+            </div>
+            <div class="form-outline mb-3">
+              <input type="password" id="confirmarSenha" name="confirmarSenha" class="form-control form-control-lg"
+                placeholder="Repita a senha" formControlName="confirmarSenha" (ngModelChange)="setCleanConfirmarSenha()">
+                <label class="text-danger">{{confirmarSenha}}</label>
+            </div>
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button type="submit" class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;">Salvar</button>
+            </div>
+          </form>
+          <div class="form-outline mb-4" *ngIf="savedPassord">
+            <br>
+            <h5><label class="text-success">Senha salva com sucesso!</label></h5>
+            <br>
+            <form #homeLogin="ngForm" (ngSubmit)="setLogin()">
+              <div class="text-left"><button type="submit"  class="btn btn-link" routerLink="/login" routerLinkActive="selected">Clique aqui para fazer login</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
