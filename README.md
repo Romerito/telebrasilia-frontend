@@ -1,4 +1,4 @@
-# Telebrasília
+# telebrasilia-frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.5.
 
@@ -31,8 +31,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 npm i -g angular-cli-ghpages
 
 
-ng build --configuration production --base-href="./telebrasilia" 
+ng build --configuration production --base-href="./telebrasilia-frontend" 
 
-angular-cli-ghpages --dir=dist/telebrasilia
+angular-cli-ghpages --dir=dist/telebrasilia-frontend
+
 
 Mo github selecione a branch criada “gh-pages” e /root
