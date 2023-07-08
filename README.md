@@ -32,6 +32,6 @@ npm i -g angular-cli-ghpages
 
 ng build --configuration production --base-href="./telebrasilia-frontend" 
 
-angular-cli-ghpages --dir=dist/telebrasilia
+angular-cli-ghpages --dir=dist/telebrasilia-frontend
 
 Mo github selecione a branch criada “gh-pages” e /root
