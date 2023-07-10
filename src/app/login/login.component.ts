@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginDTOComponent } from './loginDTO.component';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   email!: string;
   cnpj!: string;
 
-  constructor(private router: Router, private formBuilder: FormBuilder ) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private http:HttpClient) { }
  
   ngOnInit() {
     this.createForm(new LoginDTOComponent());
@@ -96,6 +97,8 @@ export class LoginComponent implements OnInit {
       this.cnpj = 'Preecha o campo cnpj!';
       return;
     }
+
+
     if(this.loginForm.value.cnpj == '18843645000151'){
       this.sendPassord = true;
       this.errorSendPassord = false;
