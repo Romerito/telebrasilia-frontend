@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "telebrasilia-frontend": {
+    "telebrasilia": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/telebrasilia-frontend",
+            "outputPath": "dist/telebrasilia",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -63,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "telebrasilia-frontend:build:production"
+              "browserTarget": "telebrasilia:build:production"
             },
             "development": {
-              "browserTarget": "telebrasilia-frontend:build:development",
+              "browserTarget": "telebrasilia:build:development",
               "proxyConfig": "src/proxy.conf.js"
             }
           },
@@ -75,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "telebrasilia-frontend:build"
+            "browserTarget": "telebrasilia:build"
           }
         },
         "test": {
