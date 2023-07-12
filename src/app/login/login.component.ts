@@ -28,6 +28,9 @@ export class LoginComponent implements OnInit {
 
   showLoading!: boolean;
 
+  passwordReceveid!: string;
+  cnpjReceveid!: string;
+
   constructor(private router: Router, private formBuilder: FormBuilder, private service: LoginService) { }
  
   ngOnInit() {
@@ -59,17 +62,19 @@ export class LoginComponent implements OnInit {
       this.cnpj = 'Preecha o campo cnpj!';
       return;
     }
-      if(this.loginForm.value.senha == '' || this.loginForm.value.senha == null){
-        if(this.loginForm.value.cnpj == '' || this.loginForm.value.cnpj == null){
-          this.cnpj = 'Preecha o campo cnpj!';
-        }
-        this.senha = 'Preecha o campo senha!';
-        return;
+    if(this.loginForm.value.senha == '' || this.loginForm.value.senha == null){
+      if(this.loginForm.value.cnpj == '' || this.loginForm.value.cnpj == null){
+        this.cnpj = 'Preecha o campo cnpj!';
       }
-      console.log(this.loginForm.value.cnpj);
-      console.log(this.loginForm.value.senha);
-      console.log(this.loginForm.value.remeberme);
-      this.router.navigate(['/home']);
+      this.senha = 'Preecha o campo senha!';
+      return;
+    }
+
+
+    this.passwordReceveid;
+    this.cnpjReceveid;
+
+    this.router.navigate(['/home']);
     }
     
     setForgotPassword() {
@@ -106,16 +111,17 @@ export class LoginComponent implements OnInit {
     this.service.getEmpresa(this.loginForm.value.cnpj).subscribe(data => {
 
       this.emailSended = data.data.e_mail2;
+      this.passwordReceveid = data.data.senha;
+      this.cnpjReceveid = data.data.cnpj;
 
       if (this.emailSended) {
         this.showLoading = false;
         this.sendPassord = true;
         this.errorSendPassord = false;
-      }
-      else {
+      } else {
         this.errorSendPassord = true;
       } 
-
+      this.showLoading = false;
   })
 
     /*

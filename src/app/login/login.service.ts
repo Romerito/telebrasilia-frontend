@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EmpresaDTO } from '../dtos/empresaDTO.component';
 import { Observable } from 'rxjs';
@@ -19,8 +19,10 @@ export class LoginService {
     }),
   };
 
-  public getEmpresa (cnpj: EmpresaDTO): Observable<any>{
-    return this.httpClient.post<EmpresaDTO>(this.apiUrl + "/empresa/", JSON.stringify(cnpj), this.httpOptions);
+  public getEmpresa (cnpj: string): Observable<any>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("cnpj", cnpj);
+    return this.httpClient.get<EmpresaDTO>(this.apiUrl + "/empresa/", {params:queryParams});
     
   }
 }
