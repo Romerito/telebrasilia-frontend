@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ChamadoDTOComponent } from './chamadoDTO.component';
+import { ChamadoDTOComponent } from '../dtos/chamadoDTO.component';
 import { Router } from '@angular/router';
 
 @Component({

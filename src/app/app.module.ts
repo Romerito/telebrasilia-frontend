@@ -17,11 +17,11 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     HeaderComponent,
     HomeComponent,
     FooterComponent,
     ChamadoComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

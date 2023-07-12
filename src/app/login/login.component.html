@@ -31,7 +31,9 @@
                 <div class="text-center"><button type="submit"  class="btn btn-link"  >Esqueceu sua senha?</button></div>
               </form>
             </div>
-              <button type="submit" class="btn btn-primary" style="padding-left: 11rem; padding-right: 11rem;">Entrar</button>
+            <div class="row d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary">Entrar</button>
+            </div>
           </form>
           <br>
           <!-- Esqueceu a senha -->
@@ -41,15 +43,19 @@
                 placeholder="Digite o cnpj" name="cnpj" formControlName="cnpj" (ngModelChange)="setCleanCnpj()">
                 <label class="text-danger">{{cnpj}}</label>
               </div>
+              <div class="row d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary" style="padding-left: 11rem; padding-right: 11rem;">Enviar</button>
+              </div>
               <form (ngSubmit)="cancelarEnvioEmail()">
                 <br>
+              <div class="row d-flex justify-content-center"> 
                 <button type="submit" class="btn btn-light" style="padding-left: 10rem; padding-right: 11rem;">Cancelar</button>
+              </div>
               </form>     
             </form>
             <div class="form-outline mb-4" *ngIf="sendPassord">
               <br>
-              <h5><label class="text-success">Senha enviada para o email romerito.alencar@gmail.com!</label></h5>
+              <h6><p class="text-success">Senha enviada para o email {{ emailSended }}!</p></h6>
               <br>
               <form #homeLogin="ngForm" (ngSubmit)="setLogin()">
                 <div class="text-left"><button type="submit"  class="btn btn-link" >Clique aqui para fazer login</button></div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginDTOComponent } from './loginDTO.component';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient } from "@angular/common/http";
+import { LoginDTOComponent } from '../dtos/loginDTO.component';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -24,12 +24,12 @@ export class LoginComponent implements OnInit {
   email!: string;
   cnpj!: string;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private http:HttpClient) { }
+  emailSended!: string;
+  constructor(private router: Router, private formBuilder: FormBuilder, private service: LoginService) { }
  
   ngOnInit() {
     this.createForm(new LoginDTOComponent());
   }
-
 
   cancelarEnvioEmail(){
     this.errorSendPassord = false;
@@ -93,19 +93,27 @@ export class LoginComponent implements OnInit {
   }
 
   getPassword() {
+    this.sendPassord = false;
+
     if(this.loginForm.value.cnpj == '' || this.loginForm.value.cnpj == null){
       this.cnpj = 'Preecha o campo cnpj!';
       return;
     }
 
+    this.service.getEmpresa(this.loginForm.value.cnpj).subscribe(data =>{
 
-    if(this.loginForm.value.cnpj == '18843645000151'){
-      this.sendPassord = true;
-      this.errorSendPassord = false;
-    } 
-    if(this.loginForm.value.cnpj != '18843645000151'){
-      this.errorSendPassord = true;
-    } 
+      this.emailSended = data.data.e_mail2; 
+
+      if(this.emailSended){
+        console.log(this.emailSended)
+        this.sendPassord = true;
+        this.errorSendPassord = false;
+      } 
+      else {
+        this.errorSendPassord = true;
+      } 
+
+  })
 
     /*
 
