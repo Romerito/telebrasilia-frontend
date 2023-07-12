@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit {
   cnpj!: string;
 
   emailSended!: string;
+
+  showLoading!: boolean;
+
   constructor(private router: Router, private formBuilder: FormBuilder, private service: LoginService) { }
  
   ngOnInit() {
@@ -94,21 +97,21 @@ export class LoginComponent implements OnInit {
 
   getPassword() {
     this.sendPassord = false;
-
+    
     if(this.loginForm.value.cnpj == '' || this.loginForm.value.cnpj == null){
       this.cnpj = 'Preecha o campo cnpj!';
       return;
     }
+    this.showLoading = true;
+    this.service.getEmpresa(this.loginForm.value.cnpj).subscribe(data => {
 
-    this.service.getEmpresa(this.loginForm.value.cnpj).subscribe(data =>{
+      this.emailSended = data.data.e_mail2;
 
-      this.emailSended = data.data.e_mail2; 
-
-      if(this.emailSended){
-        console.log(this.emailSended)
+      if (this.emailSended) {
+        this.showLoading = false;
         this.sendPassord = true;
         this.errorSendPassord = false;
-      } 
+      }
       else {
         this.errorSendPassord = true;
       } 
