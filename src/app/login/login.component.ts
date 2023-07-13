@@ -47,8 +47,6 @@ export class LoginComponent implements OnInit {
   createForm(login: LoginDTOComponent) {
     this.loginForm =  this.formBuilder.group({
       senha: new FormControl(login.senha),
-      confirmarSenha: new FormControl(login.confirmarSenha),
-      email: new FormControl(login.email),
       cnpj: new FormControl(login.cnpj),
       remeberme: new FormControl(login.remeberme)
     })
@@ -70,14 +68,24 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    let acesso = new LoginDTOComponent();
+    acesso.senha = this.loginForm.value.senha;
+    acesso.cnpj = this.loginForm.value.cnpj;
 
-    this.passwordReceveid;
-    this.cnpjReceveid;
+    this.service.getLogin(acesso).subscribe(data => {
+      this.passwordReceveid = data.data.senha;
+      this.cnpjReceveid = data.data.cnpj;
+      if(this.passwordReceveid == this.loginForm.value.senha && this.cnpjReceveid == this.loginForm.value.cnpj){
+        this.router.navigate(['/home']);
+      }
+    },
+      (e) => {
+        this.cnpj = 'Verificar CNPJ';
+        this.senha = 'Varificar senha';
+      });
+  }
 
-    this.router.navigate(['/home']);
-    }
-    
-    setForgotPassword() {
+  setForgotPassword() {
     this.login = false;
     this.forgotPassword = true;
     this.createForm(new LoginDTOComponent());
