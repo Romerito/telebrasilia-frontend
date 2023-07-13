@@ -62,18 +62,18 @@
             </div>
           
             <div class="form-outline mb-4" *ngIf="sendPassord">
-              <h6>
-                <p class="text-success">Senha enviada para o email {{ emailSended }}!</p>
-              </h6>
-            
+              <div class="d-flex justify-content-center">
+                <p class="text-success"><strong> Senha enviada para o email {{ emailSended }}!</strong></p>
+              </div>
               <form #homeLogin="ngForm" (ngSubmit)="setLogin()">
-                <div class="text-left"><button type="submit" class="btn btn-link">Clique aqui para fazer login</button></div>
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-link"><strong>Clique aqui para fazer login</strong></button>
+                </div>
               </form>
             </div>
 
-            <div class="form-outline mb-4" *ngIf="errorSendPassord">
-              <br>
-              <h6><label class="text-danger">Não encontrou o CNPJ informado!</label></h6>
+            <div class="d-flex justify-content-center" *ngIf="errorSendPassord">
+              <h6><label class="text-danger"><strong>CNPJ não encontrado</strong></label></h6>
               <br>
             </div>
           <!-- Salvar senha -->

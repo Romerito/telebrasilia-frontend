@@ -109,29 +109,18 @@ export class LoginComponent implements OnInit {
     }
     this.showLoading = true;
     this.service.getEmpresa(this.loginForm.value.cnpj).subscribe(data => {
-
       this.emailSended = data.data.e_mail2;
-      this.passwordReceveid = data.data.senha;
-      this.cnpjReceveid = data.data.cnpj;
-
-      if (this.emailSended) {
-        this.showLoading = false;
-        this.sendPassord = true;
-        this.errorSendPassord = false;
-      } else {
-        this.errorSendPassord = true;
-      } 
       this.showLoading = false;
-  })
-
-    /*
-
-    else {
-       this.forgotPassword = false;
-       this. savePassword = true;
-    }
-    */
+      this.sendPassord = true;
+      this.errorSendPassord = false;
+    },
+     (e) => {
+      this.sendPassord = false;
+      this.showLoading = false;
+      this.errorSendPassord = true;
+    });
   }
+  
   setLogin() {
     this.login = true;
     this.forgotPassword = false;
