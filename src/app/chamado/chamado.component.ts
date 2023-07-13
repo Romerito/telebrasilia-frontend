@@ -53,7 +53,7 @@ export class ChamadoComponent implements OnInit {
 
   onSubmit(){
     if(this.chamadoForm.value.titulo == '' || this.chamadoForm.value.titulo == null){
-      this.titulo = 'Selecionar o título do chamado';
+      this.titulo = 'Selecionar o tipo do chamado';
       return;
     }
     if(this.chamadoForm.value.descricao == '' || this.chamadoForm.value.descricao == null){

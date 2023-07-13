@@ -21,16 +21,9 @@
                 placeholder="Digite a senha" formControlName="senha" (ngModelChange)="setCleanSenha()"/>
                 <label class="text-danger">{{senha}}</label>
             </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="form-check mb-0">
-                <input class="form-check-input me-2" type="checkbox" value="" id="remeberme" name="remeberme" formControlName="remeberme"/>
-                <label class="form-check-label" class="text-center"> Lembre de mim
-                </label>
-              </div>
               <form #login="ngForm" (ngSubmit)="setForgotPassword()">
-                <div class="text-center"><button type="submit"  class="btn btn-link"  >Esqueceu sua senha?</button></div>
+                <button type="submit" class="btn btn-link">Esqueceu sua senha?</button>
               </form>
-            </div>
             <div class="row d-flex justify-content-center">
               <button type="submit" class="btn btn-primary">Entrar</button>
             </div>
