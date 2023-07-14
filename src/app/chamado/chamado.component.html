@@ -26,9 +26,9 @@
           <!-- Criar chamado -->
         <form [formGroup]="chamadoForm" (ngSubmit)="onSubmit()" *ngIf="showFormChamado">
           <div class="form-outline mb-2">
-            <h6> <label for="titulo" class="form-label text-primary">Tipo do chamado</label></h6>
+            <h6> <label for="tpChamado" class="form-label text-primary">Tipo do chamado</label></h6>
 
-            <select class="form-select" formControlName="titulo" (ngModelChange)="setCleanTitulo()">
+            <select class="form-select" formControlName="tpChamado" (ngModelChange)="setCleanTitulo()">
               <option>Sem acesso</option>
               <option>Acesso lento</option>
               <option>Mudança de Plano</option>
@@ -40,13 +40,13 @@
           <label class="text-danger">{{titulo}}</label>
           <div class="form-outline mb-2">
             <h6> <label for="descricao" class="form-label text-primary">Descrição do chamado</label></h6>
-            <textarea class="form-control" id="descricao" name="descricao" rows="6" formControlName="descricao"
+            <textarea class="form-control" id="descricao" name="dsChamado" rows="6" formControlName="dsChamado"
               (ngModelChange)="setCleanDescricao()"></textarea>
             </div>
             <label class="text-danger">{{descricao}}</label>
           <div>
             <h6> <label for="arquivo" class="form-label text-primary">Anexar arquivo</label></h6>
-            <input class="form-control text-primary " id="arquivo" name="arquivo" type="file" formControlName="arquivo">
+            <input class="form-control text-primary " id="noArquivo" name="noArquivo" type="file" formControlName="noArquivo">
           </div>
           
           <div class="row d-flex justify-content-center text-center pt-4">

@@ -1,5 +1,6 @@
 export class ChamadoDTOComponent {
-    titulo!: string;
-    descricao!: string;
-    arquivo!: string;
+    idEmpresa!: 3706;
+    tpChamado!: string;
+    dsChamado!: string;
+    noArquivo!: string;
 }
