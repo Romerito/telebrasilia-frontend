@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginDTOComponent } from '../dtos/loginDTO.component';
@@ -10,6 +10,9 @@ import { LoginService } from './login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  @Output() cnpjReceveid!: string;
+
   title = 'Login';
   loginForm!: FormGroup;
   login: boolean = true;
@@ -29,7 +32,6 @@ export class LoginComponent implements OnInit {
   showLoading!: boolean;
 
   passwordReceveid!: string;
-  cnpjReceveid!: string;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private service: LoginService) { }
  

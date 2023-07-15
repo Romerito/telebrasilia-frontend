@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ChamadoDTOComponent } from '../dtos/chamadoDTO.component';
 import { Router } from '@angular/router';
 import { ChamadoService } from './chamado.service';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-chamado',
@@ -10,7 +11,9 @@ import { ChamadoService } from './chamado.service';
   styleUrls: ['./chamado.component.css']
 })
 export class ChamadoComponent implements OnInit {
-  title = 'Chamado';
+  
+   cnpjReceveid!: string;
+
   chamadoForm!: FormGroup;
 
   titulo!: string;
@@ -50,6 +53,7 @@ export class ChamadoComponent implements OnInit {
       tpChamado: new FormControl(chamado.tpChamado),
       dsChamado: new FormControl(chamado.dsChamado),
       noArquivo: new FormControl(chamado.noArquivo),
+      cnpjReceveid: new FormControl(this.cnpjReceveid),
     })
   }
 
@@ -64,7 +68,7 @@ export class ChamadoComponent implements OnInit {
     }
 
     let chamado = new ChamadoDTOComponent();
-    chamado.idEmpresa = 3706,
+    chamado.cnpjReceveid = this.chamadoForm.value.cnpjReceveid,
     chamado.tpChamado = this.chamadoForm.value.tpChamado;
     chamado.dsChamado = this.chamadoForm.value.dsChamado;
     chamado.noArquivo = this.chamadoForm.value.noArquivo;
