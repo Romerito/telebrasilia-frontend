@@ -68,7 +68,6 @@ export class ChamadoComponent implements OnInit {
     }
 
     let chamado = new ChamadoDTOComponent();
-    chamado.cnpjReceveid = this.chamadoForm.value.cnpjReceveid,
     chamado.tpChamado = this.chamadoForm.value.tpChamado;
     chamado.dsChamado = this.chamadoForm.value.dsChamado;
     chamado.noArquivo = this.chamadoForm.value.noArquivo;

@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginDTOComponent } from '../dtos/loginDTO.component';
 import { LoginService } from './login.service';
+import { ChamadoService } from '../chamado/chamado.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent implements OnInit {
 
-  @Output() cnpjReceveid!: string;
+  cnpjReceveid!: string;
+  idEmpresa!: string;
 
   title = 'Login';
   loginForm!: FormGroup;
@@ -33,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   passwordReceveid!: string;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private service: LoginService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private service: LoginService, private chamadoService: ChamadoService) { }
  
   ngOnInit() {
     this.createForm(new LoginDTOComponent());
@@ -75,9 +77,11 @@ export class LoginComponent implements OnInit {
     acesso.cnpj = this.loginForm.value.cnpj;
 
     this.service.getLogin(acesso).subscribe(data => {
+      this.idEmpresa = data.data.idEmpresa;
       this.passwordReceveid = data.data.senha;
       this.cnpjReceveid = data.data.cnpj;
       if(this.passwordReceveid == this.loginForm.value.senha && this.cnpjReceveid == this.loginForm.value.cnpj){
+        this.chamadoService.idEmpresa = this.idEmpresa;
         this.router.navigate(['/home']);
       }
     },
