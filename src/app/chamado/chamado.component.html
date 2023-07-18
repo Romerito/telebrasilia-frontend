@@ -61,9 +61,18 @@
             </div>
           </form>
         </form>
+        <br>
         <div class="alert alert-success" role="alert" *ngIf="showMessageCreate">
           <h6 class="alert-heading">Chamado criado com com sucesso!</h6>
         </div>
+
+        <div class="form-outline mb-4" *ngIf="showLoading">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+          </div>
+        </div>
+
       </div>
       
     </div>

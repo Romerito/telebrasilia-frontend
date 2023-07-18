@@ -3,4 +3,5 @@ export class ChamadoDTOComponent {
     tpChamado!: string;
     dsChamado!: string;
     noArquivo!: string;
+    noArquivos!: File;
 }

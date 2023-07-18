@@ -12,7 +12,7 @@ import { LoginComponent } from '../login/login.component';
 })
 export class ChamadoComponent implements OnInit {
   
-   cnpjReceveid!: string;
+  cnpjReceveid!: string;
 
   chamadoForm!: FormGroup;
 
@@ -24,6 +24,9 @@ export class ChamadoComponent implements OnInit {
   showNovoChamado: boolean = true;
   showFormChamado!: boolean;
   showMessageCreate!: boolean;
+  showLoading!: boolean;
+
+  file!: File;
 
   chamadoRecebido!: ChamadoDTOComponent;
   
@@ -66,26 +69,38 @@ export class ChamadoComponent implements OnInit {
       this.descricao = 'Preencher a descrição do chamado';
       return;
     }
-
+/* 
+    upload(file: File): Observable<HttpEvent<any>> {
+      const formData: FormData = new FormData();
+  
+      formData.append('file', file);
+  
+      const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+        reportProgress: true,
+        responseType: 'json'
+      });
+  
+      return this.http.request(req);
+    } */
+    
     let chamado = new ChamadoDTOComponent();
     chamado.tpChamado = this.chamadoForm.value.tpChamado;
     chamado.dsChamado = this.chamadoForm.value.dsChamado;
     chamado.noArquivo = this.chamadoForm.value.noArquivo;
 
-
+    this.showLoading = true;
     this.chamadoService.criarChamado(chamado).subscribe(data => {
       this.chamadoRecebido = data;
+      this.showLoading = false;
+      this.showMessageCreate = true;
+      this.showFormChamado = false;
+      this.showNovoChamado = true;
     },
     (e) => {
-      var a = 'Falha ao criar chamado';
+      this.showLoading = false;
     });
 
-    
-    this.showFormChamado = false;
-    this.showNovoChamado = true;
-    this.showMessageCreate = true;
-    console.log(this.chamadoForm.value.title)
-    
+
   }
   
   onConsultar(){
