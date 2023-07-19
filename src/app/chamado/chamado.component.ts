@@ -1,9 +1,8 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ChamadoDTOComponent } from '../dtos/chamadoDTO.component';
 import { Router } from '@angular/router';
+import { ChamadoDTOComponent } from '../dtos/chamadoDTO.component';
 import { ChamadoService } from './chamado.service';
-import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-chamado',
@@ -15,6 +14,8 @@ export class ChamadoComponent implements OnInit {
   cnpjReceveid!: string;
 
   chamadoForm!: FormGroup;
+
+  uploadForm!: FormGroup; 
 
   titulo!: string;
   descricao!: string;
@@ -28,7 +29,6 @@ export class ChamadoComponent implements OnInit {
 
   file!: File;
 
-  chamadoRecebido!: ChamadoDTOComponent;
   
   constructor(private formBuilder: FormBuilder, private router: Router, private chamadoService: ChamadoService) { }
 
@@ -50,14 +50,23 @@ export class ChamadoComponent implements OnInit {
     this.createForm(new ChamadoDTOComponent());
    // this.router.navigate(['/chamado']);
   }
+
+
   
   createForm(chamado: ChamadoDTOComponent) {
     this.chamadoForm =  this.formBuilder.group({
       tpChamado: new FormControl(chamado.tpChamado),
       dsChamado: new FormControl(chamado.dsChamado),
-      noArquivo: new FormControl(chamado.noArquivo),
       cnpjReceveid: new FormControl(this.cnpjReceveid),
     })
+  }
+
+  
+  setUploadFiles (event: Event){
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    this.file = files[0];
+    console.log(files);
   }
 
   onSubmit(){
@@ -88,7 +97,10 @@ export class ChamadoComponent implements OnInit {
     chamado.dsChamado = this.chamadoForm.value.dsChamado;
     chamado.noArquivo = this.chamadoForm.value.noArquivo;
 
-    this.showLoading = true;
+
+    this.chamadoService.upload(this.file).subscribe();
+
+ /*    this.showLoading = true;
     this.chamadoService.criarChamado(chamado).subscribe(data => {
       this.chamadoRecebido = data;
       this.showLoading = false;
@@ -99,7 +111,7 @@ export class ChamadoComponent implements OnInit {
     (e) => {
       this.showLoading = false;
     });
-
+ */
 
   }
   
@@ -115,5 +127,6 @@ export class ChamadoComponent implements OnInit {
   setCleanDescricao (){
     this.descricao = '';
   }
+
 
 }

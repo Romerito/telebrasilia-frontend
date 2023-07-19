@@ -8,23 +8,39 @@ import { ChamadoDTOComponent } from '../dtos/chamadoDTO.component';
 })
 export class ChamadoService {
 
-  apiUrl = "/api";
+  apiUrl = "http://localhost:8080/api";
 
   idEmpresa!: string;
 
   constructor(private httpClient: HttpClient) { }
   httpOptions = {
+    reportProgress: true,
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      observe: 'data'
+      observe: 'data',
+      responseType: 'json'
     }),
   };
 
   
-  upload(file: File): Observable<HttpEvent<any>> {
+   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
-    formData.append('file', file);
+    formData.append('files', file);
+
+      const req = new HttpRequest('POST', `${this.apiUrl}/chamado/`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    }); 
+
+    return this.httpClient.request(req);
+  } 
+  
+
+  public criarChamado (chamado: ChamadoDTOComponent): Observable<any>{
+    chamado.idEmpresa = this.idEmpresa;
+    const formData: FormData = new FormData();
+    formData.append('file', chamado.noArquivo);
 
     const req = new HttpRequest('POST', `${this.apiUrl}/chamado/`, formData, {
       reportProgress: true,
@@ -34,8 +50,6 @@ export class ChamadoService {
     return this.httpClient.request(req);
   }
 
-  public criarChamado (chamado: ChamadoDTOComponent): Observable<any>{
-    chamado.idEmpresa = this.idEmpresa;
-    return this.httpClient.post<ChamadoDTOComponent>(this.apiUrl + "/chamado/", chamado, this.httpOptions);
-  }
+
+
  }
