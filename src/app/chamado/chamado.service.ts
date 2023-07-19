@@ -23,15 +23,19 @@ export class ChamadoService {
   };
 
   
-   upload(file: File): Observable<HttpEvent<any>> {
+  upload(file: FileList): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
-    formData.append('files', file);
+    for (let index = 0; index < file.length; index++) {
+      formData.append('files', file[index]);
+    }
 
-      const req = new HttpRequest('POST', `${this.apiUrl}/chamado/`, formData, {
+
+
+    const req = new HttpRequest('POST', `${this.apiUrl}/chamado/`, formData, {
       reportProgress: true,
       responseType: 'json'
-    }); 
+    });
 
     return this.httpClient.request(req);
   } 

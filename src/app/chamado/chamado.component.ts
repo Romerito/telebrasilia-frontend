@@ -27,7 +27,7 @@ export class ChamadoComponent implements OnInit {
   showMessageCreate!: boolean;
   showLoading!: boolean;
 
-  file!: File;
+  files!: FileList;
 
   
   constructor(private formBuilder: FormBuilder, private router: Router, private chamadoService: ChamadoService) { }
@@ -64,9 +64,7 @@ export class ChamadoComponent implements OnInit {
   
   setUploadFiles (event: Event){
     const target = event.target as HTMLInputElement;
-    const files = target.files as FileList;
-    this.file = files[0];
-    console.log(files);
+    this.files = target.files as FileList;
   }
 
   onSubmit(){
@@ -98,7 +96,7 @@ export class ChamadoComponent implements OnInit {
     chamado.noArquivo = this.chamadoForm.value.noArquivo;
 
 
-    this.chamadoService.upload(this.file).subscribe();
+    this.chamadoService.upload(this.files).subscribe();
 
  /*    this.showLoading = true;
     this.chamadoService.criarChamado(chamado).subscribe(data => {
