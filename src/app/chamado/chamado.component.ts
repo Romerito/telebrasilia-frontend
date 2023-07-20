@@ -48,7 +48,6 @@ export class ChamadoComponent implements OnInit {
   
   ngOnInit() {
     this.createForm(new ChamadoDTOComponent());
-   // this.router.navigate(['/chamado']);
   }
 
 
@@ -76,31 +75,14 @@ export class ChamadoComponent implements OnInit {
       this.descricao = 'Preencher a descrição do chamado';
       return;
     }
-/* 
-    upload(file: File): Observable<HttpEvent<any>> {
-      const formData: FormData = new FormData();
-  
-      formData.append('file', file);
-  
-      const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
-        reportProgress: true,
-        responseType: 'json'
-      });
-  
-      return this.http.request(req);
-    } */
     
     let chamado = new ChamadoDTOComponent();
     chamado.tpChamado = this.chamadoForm.value.tpChamado;
     chamado.dsChamado = this.chamadoForm.value.dsChamado;
-    chamado.noArquivo = this.chamadoForm.value.noArquivo;
 
 
-    this.chamadoService.upload(this.files).subscribe();
-
- /*    this.showLoading = true;
-    this.chamadoService.criarChamado(chamado).subscribe(data => {
-      this.chamadoRecebido = data;
+    this.showLoading = true;
+    this.chamadoService.criarChamado(this.files, chamado).subscribe(data => {
       this.showLoading = false;
       this.showMessageCreate = true;
       this.showFormChamado = false;
@@ -109,7 +91,7 @@ export class ChamadoComponent implements OnInit {
     (e) => {
       this.showLoading = false;
     });
- */
+
 
   }
   

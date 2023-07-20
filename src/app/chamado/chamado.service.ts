@@ -2,6 +2,7 @@ import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChamadoDTOComponent } from '../dtos/chamadoDTO.component';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +24,17 @@ export class ChamadoService {
   };
 
   
-  upload(file: FileList): Observable<HttpEvent<any>> {
+  criarChamado(file: FileList, chamado: ChamadoDTOComponent): Observable<HttpEvent<any>> {
+    chamado.idEmpresa = this.idEmpresa;
     const formData: FormData = new FormData();
 
     for (let index = 0; index < file.length; index++) {
       formData.append('files', file[index]);
     }
 
+      formData.append('tpChamado', chamado.tpChamado);
+      formData.append('dsChamado', chamado.dsChamado);
+      formData.append('idEmpresa', chamado.idEmpresa);
 
 
     const req = new HttpRequest('POST', `${this.apiUrl}/chamado/`, formData, {
@@ -41,10 +46,9 @@ export class ChamadoService {
   } 
   
 
-  public criarChamado (chamado: ChamadoDTOComponent): Observable<any>{
+/*   public criarChamado (chamado: ChamadoDTOComponent): Observable<any>{
     chamado.idEmpresa = this.idEmpresa;
     const formData: FormData = new FormData();
-    formData.append('file', chamado.noArquivo);
 
     const req = new HttpRequest('POST', `${this.apiUrl}/chamado/`, formData, {
       reportProgress: true,
@@ -52,7 +56,7 @@ export class ChamadoService {
     });
 
     return this.httpClient.request(req);
-  }
+  } */
 
 
 
