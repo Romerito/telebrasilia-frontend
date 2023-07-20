@@ -55,7 +55,7 @@ export class ChamadoComponent implements OnInit {
     this.chamadoForm =  this.formBuilder.group({
       tpChamado: new FormControl(chamado.tpChamado),
       dsChamado: new FormControl(chamado.dsChamado),
-      cnpjReceveid: new FormControl(this.cnpjReceveid),
+      noArquivo: new FormControl(chamado.noArquivo),
     })
   }
 
@@ -78,6 +78,7 @@ export class ChamadoComponent implements OnInit {
     let chamado = new ChamadoDTOComponent();
     chamado.tpChamado = this.chamadoForm.value.tpChamado;
     chamado.dsChamado = this.chamadoForm.value.dsChamado;
+    chamado.noArquivo = this.chamadoForm.value.noArquivo;
     
     this.showLoading = true;
     this.chamadoService.criarChamado(this.files,chamado).subscribe(data => {

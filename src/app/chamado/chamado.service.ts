@@ -25,6 +25,7 @@ export class ChamadoService {
       formData.append('tpChamado', chamado.tpChamado);
       formData.append('dsChamado', chamado.dsChamado);
       formData.append('idEmpresa', chamado.idEmpresa);
+      formData.append('noArquivo', chamado.noArquivo);
 
       return this.httpClient.post<any>(this.apiUrl + "/chamado/", formData,);
 
