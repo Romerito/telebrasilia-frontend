@@ -49,13 +49,13 @@ export class ChamadoComponent implements OnInit {
     this.createForm(new ChamadoDTOComponent());
   }
 
-
-  
   createForm(chamado: ChamadoDTOComponent) {
     this.chamadoForm =  this.formBuilder.group({
       tpChamado: new FormControl(chamado.tpChamado),
       dsChamado: new FormControl(chamado.dsChamado),
       noArquivo: new FormControl(chamado.noArquivo),
+      stProtocolo: new FormControl(chamado.stProtocolo),
+      nuProtocolo: new FormControl(chamado.nuProtocolo),
     })
   }
 
@@ -97,8 +97,22 @@ export class ChamadoComponent implements OnInit {
 
   onConsultar(){
     this.showMessageCreate = false;
-    this.listarChamado = true;
+    this.showLoading = true;
+
+    let chamado = new ChamadoDTOComponent();
+    chamado.stProtocolo = this.chamadoForm.value.stProtocolo;
+    chamado.nuProtocolo = this.chamadoForm.value.nuProtocolo;
+    
+    this.chamadoService.consultarChamados(chamado).subscribe(data => {
+      this.showLoading = false;
+      this.listarChamado = true;
+    },
+    (e) => {
+      this.showLoading = false;
+    });
+  
   }
+
 
   setCleanTitulo (){
     this.titulo = '';

@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChamadoDTOComponent } from '../dtos/chamadoDTO.component';
@@ -13,23 +13,31 @@ export class ChamadoService {
   idEmpresa!: string;
 
   constructor(private httpClient: HttpClient) { }
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      observe: 'data'
+    }),
+  };
 
-  public criarChamado (file: FileList, chamado: ChamadoDTOComponent): Observable<HttpEvent<any>> {
-    chamado.idEmpresa = this.idEmpresa;
+  public criarChamado(file: FileList, chamado: ChamadoDTOComponent): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
     for (let index = 0; index < file.length; index++) {
       formData.append('files', file[index]);
     }
 
-      formData.append('tpChamado', chamado.tpChamado);
-      formData.append('dsChamado', chamado.dsChamado);
-      formData.append('idEmpresa', chamado.idEmpresa);
-      formData.append('noArquivo', chamado.noArquivo);
+    formData.append('tpChamado', chamado.tpChamado);
+    formData.append('dsChamado', chamado.dsChamado);
+    formData.append('idEmpresa', this.idEmpresa);
+    formData.append('noArquivo', chamado.noArquivo);
 
-      return this.httpClient.post<any>(this.apiUrl + "/chamado/", formData,);
-
+    return this.httpClient.post<any>(this.apiUrl + "/chamado/", formData);
   }
   
+  public consultarChamados(chamado: ChamadoDTOComponent): Observable<any>{
+    chamado.idEmpresa = this.idEmpresa;
+    return this.httpClient.post<ChamadoDTOComponent>(this.apiUrl + "/chamados/", chamado, this.httpOptions);
+  }
 
  }

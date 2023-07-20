@@ -3,4 +3,6 @@ export class ChamadoDTOComponent {
     tpChamado!: string;
     dsChamado!: string;
     noArquivo!: string;
+    stProtocolo!: string;
+    nuProtocolo!: string;
 }
