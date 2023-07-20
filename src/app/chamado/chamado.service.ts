@@ -46,18 +46,4 @@ export class ChamadoService {
   } 
   
 
-/*   public criarChamado (chamado: ChamadoDTOComponent): Observable<any>{
-    chamado.idEmpresa = this.idEmpresa;
-    const formData: FormData = new FormData();
-
-    const req = new HttpRequest('POST', `${this.apiUrl}/chamado/`, formData, {
-      reportProgress: true,
-      responseType: 'json'
-    });
-
-    return this.httpClient.request(req);
-  } */
-
-
-
  }

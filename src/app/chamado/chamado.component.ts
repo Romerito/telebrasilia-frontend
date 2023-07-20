@@ -28,7 +28,6 @@ export class ChamadoComponent implements OnInit {
   showLoading!: boolean;
 
   files!: FileList;
-
   
   constructor(private formBuilder: FormBuilder, private router: Router, private chamadoService: ChamadoService) { }
 
@@ -79,22 +78,22 @@ export class ChamadoComponent implements OnInit {
     let chamado = new ChamadoDTOComponent();
     chamado.tpChamado = this.chamadoForm.value.tpChamado;
     chamado.dsChamado = this.chamadoForm.value.dsChamado;
-
-
+    
     this.showLoading = true;
-    this.chamadoService.criarChamado(this.files, chamado).subscribe(data => {
+    this.chamadoService.criarChamado(this.files,chamado).subscribe(data => {
       this.showLoading = false;
       this.showMessageCreate = true;
       this.showFormChamado = false;
       this.showNovoChamado = true;
+    
     },
     (e) => {
       this.showLoading = false;
     });
-
-
-  }
   
+  }
+
+
   onConsultar(){
     this.showMessageCreate = false;
     this.listarChamado = true;
