@@ -28,6 +28,8 @@ export class ChamadoComponent implements OnInit {
   showLoading!: boolean;
 
   files!: FileList;
+
+  chamados!: ChamadoDTOComponent[];
   
   constructor(private formBuilder: FormBuilder, private router: Router, private chamadoService: ChamadoService) { }
 
@@ -104,6 +106,7 @@ export class ChamadoComponent implements OnInit {
     chamado.nuProtocolo = this.chamadoForm.value.nuProtocolo;
     
     this.chamadoService.consultarChamados(chamado).subscribe(data => {
+      this.chamados = data.data;
       this.showLoading = false;
       this.listarChamado = true;
     },

@@ -117,32 +117,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>0000000000</td>
-            <td>Sem acesso</td>
-            <td>Sem acesso a internet</td>
-            <td>Arquivo</td>
-            <td>Aberto</td>
+          <tr *ngFor="let chamado of chamados">
+            <td>{{chamado.nuProtocolo}}</td>
+            <td>{{chamado.tpChamado }}</td>
+            <td>{{chamado.dsChamado }}</td>
+            <td>{{chamado.noArquivo}}</td>
+            <td>{{chamado.stProtocolo}}</td>
           </tr>
         </tbody>
-        <tbody>
-          <tr>
-            <td>0000000000</td>
-            <td>Sem acesso</td>
-            <td>Identificando defeito</td>
-            <td>N/A</td>
-            <td>Andamento</td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <td>0000000000</td>
-            <td>Sem acesso</td>
-            <td>Defeito corrigido</td>
-            <td>Arquivo</td>
-            <td>Andamento</td>
-          </tr>
-        </tbody>
+
       </table>
 
       <nav aria-label="Paginas de chamados">
