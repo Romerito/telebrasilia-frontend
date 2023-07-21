@@ -5,4 +5,5 @@ export class ChamadoDTOComponent {
     noArquivo!: string;
     stProtocolo!: string;
     nuProtocolo!: string;
+    files!: FileList
 }
