@@ -120,8 +120,11 @@
           <tr *ngFor="let chamado of chamados">
             <td>{{chamado.nuProtocolo}}</td>
             <td>{{chamado.tpChamado }}</td>
-            <td>{{chamado.dsChamado }}</td>
-            <td>{{chamado.files[0]}}</td>
+            <td>{{chamado.dsChamado}}</td>
+           
+            <td *ngFor="let file of  chamado.files">
+                      {{file}}
+            </td>
             <td>{{chamado.stProtocolo}}</td>
           </tr>
         </tbody>

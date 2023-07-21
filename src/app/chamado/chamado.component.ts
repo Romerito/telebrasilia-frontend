@@ -29,7 +29,10 @@ export class ChamadoComponent implements OnInit {
 
   files!: FileList;
 
+  listFiles!: FileList;
+
   chamados!: ChamadoDTOComponent[];
+  fileList!: string;
   
   constructor(private formBuilder: FormBuilder, private router: Router, private chamadoService: ChamadoService) { }
 
@@ -107,6 +110,8 @@ export class ChamadoComponent implements OnInit {
     
     this.chamadoService.consultarChamados(chamado).subscribe(data => {
       this.chamados = data.data;
+      this.files = data.files;
+     
       this.showLoading = false;
       this.listarChamado = true;
     },
