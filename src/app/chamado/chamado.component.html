@@ -93,7 +93,7 @@
           <div class="form-outline mb-2">
             <h6> <label for="stProtocolo" class="form-label text-primary">Status do chamado</label></h6>
 
-            <select class="form-select" formControlName="stProtocolo" (ngModelChange)="setCleanTitulo()">
+            <select class="form-select" formControlName="stProtocolo" (ngModelChange)="setCleanStProtocolo()">
               <option>Em execução</option>
               <option> Finalizado</option>
             </select>
@@ -130,27 +130,32 @@
 <br>
 <br>
 <section> 
-  <div class="row d-flex justify-content-center align-items-center" *ngIf="listarChamado">
+  <div  class="row d-flex justify-content-center align-items-center" *ngIf="listarChamado">
     <div class="col-md-8">
+      
       <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">
               <div class="form-outline">
-                <input type="search" class="form-control" placeholder="Filtrar" aria-label="Filtrar" />
+                <form [formGroup]="chamadoForm" (change)="consultarChamado()">
+                <input type="search" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" formControlName="nuProtocolo" />
+              </form>
               </div>
-
             </th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col">
-              <select class="form-select">
-                <option selected>Filtrar</option>
-                <option value="1">Aberto</option>
-                <option value="2">Andamento</option>
-                <option value="3">Fechado</option>
+              <form [formGroup]="chamadoForm" (change)="consultarChamado()">
+              <select  type="submit" class="form-select"class="form-select"   formControlName="stProtocolo">
+                <option [selected]="true">Selecione</option>
+                <option value="Aberto">Aberto</option>
+                <option value="Em execução">Em execução</option>
+                <option value="Fechado">Fechado</option>
               </select>
+              
+              </form>
             </th>
           </tr>
         </thead>
@@ -189,7 +194,7 @@
         </tbody>
 
       </table>
-
+<!-- 
       <nav aria-label="Paginas de chamados">
         <ul class="pagination">
           <li class="page-item disabled">
@@ -205,6 +210,9 @@
           </li>
         </ul>
       </nav>
+     -->
+    
+    
     </div>
   </div>
 </section>

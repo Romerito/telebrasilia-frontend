@@ -98,6 +98,13 @@ export class ChamadoComponent implements OnInit {
     })
   }
 
+  createFormConsulta(chamado: ChamadoDTOComponent) {
+    this.chamadoForm =  this.formBuilder.group({
+      nuProtocolo: new FormControl(chamado.nuProtocolo),
+    })
+  }
+
+
   
   setUploadFiles (event: Event){
     const target = event.target as HTMLInputElement;
@@ -153,8 +160,9 @@ export class ChamadoComponent implements OnInit {
     (e) => {
       this.showLoading = false;
     });
-  
   }
+
+  
 
   respoderChamado(){
     if(this.chamadoForm.value.stProtocolo == '' || this.chamadoForm.value.stProtocolo == null){
