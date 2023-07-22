@@ -34,8 +34,13 @@ export class ChamadoService {
 
     return this.httpClient.post<any>(this.apiUrl + "/chamado/", formData);
   }
+
+  public responderChamado(chamado: ChamadoDTOComponent): Observable<any>{
+    return this.httpClient.post<ChamadoDTOComponent>(this.apiUrl + "/responder/", chamado, this.httpOptions);
+  }
+
   
-  public consultarChamados(chamado: ChamadoDTOComponent): Observable<any>{
+  public consultarChamado(chamado: ChamadoDTOComponent): Observable<any>{
     chamado.idEmpresa = this.idEmpresa;
     return this.httpClient.post<ChamadoDTOComponent>(this.apiUrl + "/chamados/", chamado, this.httpOptions);
   }

@@ -1,30 +1,38 @@
 <app-header></app-header>
-<section >
+<section>
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
 
-      <!-- Novo chamado -->
+      <!-- chamado -->
       <div class="d-flex justify-content-center">
-       <tr>
-        <td><form (ngSubmit)="novoChamado()" *ngIf="showNovoChamado">
-          <div class="text-primary pt-4">
-            <button type="submit" class="btn btn-success btn float-right" style="padding-left: 2.5rem; padding-right: 2.5rem;">
-              Novo Chamado</button>
-          </div>
-        </form></td>
-        <td><form  (ngSubmit)="onConsultar()" *ngIf="showNovoChamado">
-          <div class="text-primary pt-4">
-            <button type="submit" class="btn btn-success btn float-right" style="padding-left: 2.5rem; padding-right: 2.5rem;">
-              Consultar Chamados</button>
-          </div>
-        </form></td>
-       </tr>
-       </div>
-       <div class="col-md-8 col-lg-6 col-xl-8 offset-xl-0">
+        <tr>
+          <td>
+            <form (ngSubmit)="novoChamado()" *ngIf="showNovoChamado">
+              <div class="text-primary pt-4">
+                <button type="submit" class="btn btn-success btn float-right"
+                  style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                  Novo Chamado</button>
+              </div>
+            </form>
+          </td>
+          <td>
+            <form (ngSubmit)="consultarChamado()" *ngIf="showNovoChamado">
+              <div class="text-primary pt-4">
+                <button type="submit" class="btn btn-success btn float-right"
+                  style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                  Consultar Chamados</button>
+              </div>
+            </form>
+          </td>
+        </tr>
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-8 offset-xl-0">
         <br>
         <br>
-          <!-- Criar chamado -->
-        <form [formGroup]="chamadoForm" (ngSubmit)="onSubmit()" method="post" enctype="multipart/form-data" *ngIf="showFormChamado">
+
+        <!-- Criar chamado -->
+        <form [formGroup]="chamadoForm" (ngSubmit)="criarChamado()" method="post" enctype="multipart/form-data"
+          *ngIf="showFormChamado">
           <div class="form-outline mb-2">
             <h6> <label for="tpChamado" class="form-label text-primary">Tipo do chamado</label></h6>
 
@@ -35,38 +43,43 @@
               <option>Mudança de endereço</option>
               <option> Outros assuntos</option>
             </select>
-            
+
           </div>
           <label class="text-danger">{{titulo}}</label>
           <div class="form-outline mb-2">
             <h6> <label for="descricao" class="form-label text-primary">Descrição do chamado</label></h6>
             <textarea class="form-control" id="descricao" name="dsChamado" rows="6" formControlName="dsChamado"
               (ngModelChange)="setCleanDescricao()"></textarea>
-            </div>
-            <label class="text-danger">{{descricao}}</label>
+          </div>
+          <label class="text-danger">{{descricao}}</label>
           <div>
             <h6> <label for="arquivo" class="form-label text-primary">Anexar arquivo</label></h6>
-            <input class="form-control text-primary" id="noArquivo" type="file" (change)="setUploadFiles($event)" 
-            formControlName="noArquivo" multiple>
+            <input class="form-control text-primary" id="noArquivo" type="file" (change)="setUploadFiles($event)"
+              formControlName="noArquivo" multiple>
           </div>
-          
+
           <div class="row d-flex justify-content-center text-center pt-4">
-            <button type="submit" class="form-control btn btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+            <button type="submit" class="form-control btn btn-primary"
+              style="padding-left: 2.5rem; padding-right: 2.5rem;">
               Criar chamado</button>
           </div>
-          
-          <form (ngSubmit)="cancelarChamado()">
+
+          <form (ngSubmit)="cancelar()">
             <div class="row d-flex justify-content-center text-center pt-4">
               <button type="submit" class="btn btn-light" style="padding-left: 2.5rem; padding-right: 2.5rem;">
                 Cancelar</button>
-            </div>
+            </div>-
           </form>
         </form>
+
         <br>
         <div class="alert alert-success" role="alert" *ngIf="showMessageCreate">
           <h6 class="alert-heading">Chamado criado com com sucesso!</h6>
         </div>
-
+        <div class="alert alert-success" role="alert" *ngIf="showMessageRespondido">
+          <h6 class="alert-heading">Chamado respondido com sucesso!</h6>
+        </div>
+        
         <div class="form-outline mb-4" *ngIf="showLoading">
           <div class="d-flex justify-content-center">
             <div class="spinner-border" role="status">
@@ -74,15 +87,49 @@
           </div>
         </div>
 
+        <!-- Responder chamado -->
+        <form [formGroup]="chamadoForm" (ngSubmit)="respoderChamado()" 
+          *ngIf="showFormResponder">
+          <div class="form-outline mb-2">
+            <h6> <label for="stProtocolo" class="form-label text-primary">Status do chamado</label></h6>
+
+            <select class="form-select" formControlName="stProtocolo" (ngModelChange)="setCleanTitulo()">
+              <option>Em execução</option>
+              <option> Finalizado</option>
+            </select>
+
+          </div>
+          <label class="text-danger">{{status}}</label>
+          <div class="form-outline mb-2">
+            <h6> <label for="descricao" class="form-label text-primary">Descrição</label></h6>
+            <textarea class="form-control" id="dsProtocolo" name="dsProtocolo" rows="6" formControlName="dsProtocolo"
+              (ngModelChange)="setCleanDescricao()"></textarea>
+          </div>
+          <label class="text-danger">{{descricao}}</label>
+
+          <div class="row d-flex justify-content-center text-center pt-4">
+            <button type="submit" class="form-control btn btn-primary"
+              style="padding-left: 2.5rem; padding-right: 2.5rem;">
+              Responder chamado</button>
+          </div>
+
+          <form (ngSubmit)="cancelar()">
+            <div class="row d-flex justify-content-center text-center pt-4">
+              <button type="submit" class="btn btn-light" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                Cancelar</button>
+            </div>
+          </form>
+        </form>
+
       </div>
       
     </div>
   </div>
-<!-- </section>
+ </section>
 <br>
 <br>
 <br>
-<section> -->
+<section> 
   <div class="row d-flex justify-content-center align-items-center" *ngIf="listarChamado">
     <div class="col-md-8">
       <table class="table table-striped">
@@ -120,15 +167,13 @@
           <tr *ngFor="let chamado of chamados">
             
             <td *ngIf="telebrasiliaLogado"> 
-                <a class="text-primary" aria-current="page">
-                  {{chamado.nuProtocolo}}
-                </a>
-            </td>
+              <button type="submit"  (click)="reponderChamado(chamado.nuProtocolo, chamado.tpChamado)" class="btn btn-link">{{chamado.nuProtocolo}}</button>
+              </td>
             <td *ngIf="!telebrasiliaLogado"> 
                 {{chamado.nuProtocolo}}
             </td>
 
-            <td>{{chamado.tpChamado }}</td>
+            <td>{{chamado.tpChamado}}</td>
             <td>{{chamado.dsChamado}}</td>
            
            
@@ -164,4 +209,3 @@
   </div>
 </section>
 <app-footer></app-footer>
-
