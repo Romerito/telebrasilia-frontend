@@ -191,8 +191,8 @@ export class ChamadoComponent implements OnInit {
     },
     (e) => {
       this.showLoading = false;
-    });
-  
+    }
+    );
   }
 
 
