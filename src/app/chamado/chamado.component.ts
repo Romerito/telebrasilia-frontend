@@ -10,7 +10,13 @@ import { ChamadoService } from './chamado.service';
   styleUrls: ['./chamado.component.css']
 })
 export class ChamadoComponent implements OnInit {
+
+  telebrasiliaLogado!: boolean;
   
+  telebrasilia: string = "3";
+ 
+  idEmpresa!: string;
+
   cnpjReceveid!: string;
 
   chamadoForm!: FormGroup;
@@ -42,6 +48,14 @@ export class ChamadoComponent implements OnInit {
     this.createForm(new ChamadoDTOComponent());
   }
 
+  verfificarTelebrasiliaLogada(){
+    if(this.telebrasilia == this.idEmpresa){
+      this.telebrasiliaLogado = true;
+    }else {
+      this.telebrasiliaLogado = false;
+    }
+  }
+
   novoChamado(){
     this.listarChamado = false;
     this.showFormChamado = true;
@@ -51,6 +65,8 @@ export class ChamadoComponent implements OnInit {
   }
   
   ngOnInit() {
+    this.idEmpresa = this.chamadoService.idEmpresa;
+    this.verfificarTelebrasiliaLogada();
     this.createForm(new ChamadoDTOComponent());
   }
 

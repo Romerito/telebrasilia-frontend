@@ -118,13 +118,27 @@
         </thead>
         <tbody>
           <tr *ngFor="let chamado of chamados">
-            <td>{{chamado.nuProtocolo}}</td>
+            
+            <td *ngIf="telebrasiliaLogado"> 
+                <a class="text-primary" aria-current="page">
+                  {{chamado.nuProtocolo}}
+                </a>
+            </td>
+            <td *ngIf="!telebrasiliaLogado"> 
+                {{chamado.nuProtocolo}}
+            </td>
+
             <td>{{chamado.tpChamado }}</td>
             <td>{{chamado.dsChamado}}</td>
            
-            <td *ngFor="let file of  chamado.files">
-                      {{file}}
-            </td>
+           
+            <td> 
+              <a href="#" class="text-primary" aria-current="page">
+                {{chamado.files}}
+              </a>
+          </td>
+
+
             <td>{{chamado.stProtocolo}}</td>
           </tr>
         </tbody>
