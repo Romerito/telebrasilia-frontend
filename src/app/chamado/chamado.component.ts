@@ -49,6 +49,13 @@ export class ChamadoComponent implements OnInit {
   
   constructor(private formBuilder: FormBuilder, private router: Router, private chamadoService: ChamadoService) { }
 
+
+
+  isFinalizado(any: string){
+    let value: boolean = any === " Finalizado";
+    return value;
+  }
+
   cancelar(){
     this.showFormChamado = false;
     this.showFormResponder = false;

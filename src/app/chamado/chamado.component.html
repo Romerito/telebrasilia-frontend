@@ -150,9 +150,8 @@
               <form [formGroup]="chamadoForm" (change)="consultarChamado()">
               <select  type="submit" class="form-select"class="form-select"   formControlName="stProtocolo">
                 <option [selected]="true">Selecione</option>
-                <option value="Aberto">Aberto</option>
                 <option value="Em execução">Em execução</option>
-                <option value="Fechado">Fechado</option>
+                <option value="Finalizado">Finalizado</option>
               </select>
               
               </form>
@@ -172,7 +171,7 @@
             <tr *ngFor="let chamado of chamados">
               
               <td *ngIf="telebrasiliaLogado"> 
-                <button type="submit" (click)="reponderChamado(chamado.nuProtocolo, chamado.tpChamado)" class="btn btn-link">{{chamado.nuProtocolo}}</button>
+                <button [disabled]="isFinalizado(chamado.stProtocolo)" type="submit" (click)="reponderChamado(chamado.nuProtocolo, chamado.tpChamado)" class="btn btn-link">{{chamado.nuProtocolo}} </button>
                 </td>
               <td *ngIf="!telebrasiliaLogado"> 
                   {{chamado.nuProtocolo}}
