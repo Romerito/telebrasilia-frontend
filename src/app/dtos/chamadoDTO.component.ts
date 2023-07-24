@@ -8,6 +8,6 @@ export class ChamadoDTOComponent {
     stProtocolo!: string;
     dsProtocolo!: string;
     nuProtocolo!: string;
-    files!: FileList[];
+    files!: string[];
     file!: FileList;
 }

@@ -167,7 +167,6 @@ export class ChamadoComponent implements OnInit {
     
     this.chamadoService.consultarChamado(chamado).subscribe(data => {
       this.chamados = data.data;
-      this.files = data.files;
      
       this.showLoading = false;
       this.listarChamado = true;

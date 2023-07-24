@@ -183,8 +183,7 @@
             
 
               <td>
-
-                <a  href="#"  target="_blank" (click)="charregarArquivo(chamado.nuProtocolo, chamado.files)"> {{chamado.files}} </a>
+                <button *ngFor="let file of chamado.files" [value]="file"  type="submit" (click)="charregarArquivo(chamado.nuProtocolo, file )"class="btn btn-link"> {{file}} </button>
               </td>
 
               <td>{{chamado.stProtocolo}}</td>
