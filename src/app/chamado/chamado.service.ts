@@ -45,7 +45,7 @@ export class ChamadoService {
   }
 
   public charregarArquivo(noArquivo: string, nuProtocolo: string): Observable<Blob> {
-    return this.httpClient.get(`${this.apiUrl}/files/${nuProtocolo}/${noArquivo}`, {
+    return this.httpClient.get(`${this.apiUrl}/file/${nuProtocolo}/${noArquivo}`, {
       responseType: 'blob'
     });
   }
