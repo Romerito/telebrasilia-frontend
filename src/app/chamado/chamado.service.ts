@@ -38,11 +38,16 @@ export class ChamadoService {
   public responderChamado(chamado: ChamadoDTOComponent): Observable<any>{
     return this.httpClient.post<ChamadoDTOComponent>(this.apiUrl + "/responder/", chamado, this.httpOptions);
   }
-
   
   public consultarChamado(chamado: ChamadoDTOComponent): Observable<any>{
     chamado.idEmpresa = this.idEmpresa;
     return this.httpClient.post<ChamadoDTOComponent>(this.apiUrl + "/chamados/", chamado, this.httpOptions);
+  }
+
+  public charregarArquivo(noArquivo: string, nuProtocolo: string): Observable<Blob> {
+    return this.httpClient.get(`${this.apiUrl}/files/${nuProtocolo}/${noArquivo}`, {
+      responseType: 'blob'
+    });
   }
 
  }

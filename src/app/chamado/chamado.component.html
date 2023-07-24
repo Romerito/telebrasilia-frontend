@@ -169,29 +169,27 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let chamado of chamados">
-            
-            <td *ngIf="telebrasiliaLogado"> 
-              <button type="submit"  (click)="reponderChamado(chamado.nuProtocolo, chamado.tpChamado)" class="btn btn-link">{{chamado.nuProtocolo}}</button>
+            <tr *ngFor="let chamado of chamados">
+              
+              <td *ngIf="telebrasiliaLogado"> 
+                <button type="submit" (click)="reponderChamado(chamado.nuProtocolo, chamado.tpChamado)" class="btn btn-link">{{chamado.nuProtocolo}}</button>
+                </td>
+              <td *ngIf="!telebrasiliaLogado"> 
+                  {{chamado.nuProtocolo}}
               </td>
-            <td *ngIf="!telebrasiliaLogado"> 
-                {{chamado.nuProtocolo}}
-            </td>
 
-            <td>{{chamado.tpChamado}}</td>
-            <td>{{chamado.dsChamado}}</td>
-           
-           
-            <td> 
-              <a href="#" class="text-primary" aria-current="page">
-                {{chamado.files}}
-              </a>
-          </td>
+              <td>{{chamado.tpChamado}}</td>
+              <td>{{chamado.dsChamado}}</td>
+            
 
+              <td>
 
-            <td>{{chamado.stProtocolo}}</td>
-          </tr>
-        </tbody>
+                <a  href="#"  target="_blank" (click)="charregarArquivo(chamado.nuProtocolo, chamado.files)"> {{chamado.files}} </a>
+              </td>
+
+              <td>{{chamado.stProtocolo}}</td>
+            </tr>
+          </tbody>
 
       </table>
 <!-- 

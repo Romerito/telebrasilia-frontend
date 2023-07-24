@@ -73,6 +73,21 @@ export class ChamadoComponent implements OnInit {
     this.showMessageCreate = false;
   }
 
+  charregarArquivo(nuProtocolo: any, filename: any){
+    let file = new ChamadoDTOComponent();
+    file.nuProtocolo = nuProtocolo;
+    file.noArquivo = filename;
+    this.chamadoService.charregarArquivo(filename,nuProtocolo).subscribe(response => {
+      let blob:any = new Blob([response], { type: response.type });
+			const url = window.URL.createObjectURL(blob);
+			window.open(url);
+    },
+    (e) => {
+        return;
+    });
+  
+  }
+
   novoChamado(){
     this.listarChamado = false;
     this.showFormChamado = true;
