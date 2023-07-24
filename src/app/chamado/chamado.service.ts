@@ -20,6 +20,18 @@ export class ChamadoService {
     }),
   };
 
+
+  
+  public criarChamadoSemArquivo(chamado: ChamadoDTOComponent): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('tpChamado', chamado.tpChamado);
+    formData.append('dsChamado', chamado.dsChamado);
+    formData.append('idEmpresa', this.idEmpresa);
+
+    return this.httpClient.post<any>(this.apiUrl + "/chamado/", formData);
+  }
+
   public criarChamado(file: FileList, chamado: ChamadoDTOComponent): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
@@ -32,7 +44,7 @@ export class ChamadoService {
     formData.append('idEmpresa', this.idEmpresa);
     formData.append('noArquivo', chamado.noArquivo);
 
-    return this.httpClient.post<any>(this.apiUrl + "/chamado/", formData);
+    return this.httpClient.post<any>(this.apiUrl + "/chamado-anexo/", formData);
   }
 
   public responderChamado(chamado: ChamadoDTOComponent): Observable<any>{

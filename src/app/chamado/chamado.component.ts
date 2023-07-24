@@ -38,6 +38,7 @@ export class ChamadoComponent implements OnInit {
   showLoading!: boolean;
 
   files!: FileList;
+  novo!: FileList;
 
   listFiles!: FileList;
 
@@ -89,6 +90,7 @@ export class ChamadoComponent implements OnInit {
   }
 
   novoChamado(){
+    this.files = this.novo;
     this.listarChamado = false;
     this.showFormChamado = true;
     this.showNovoChamado = false;
@@ -142,16 +144,32 @@ export class ChamadoComponent implements OnInit {
     chamado.noArquivo = this.chamadoForm.value.noArquivo;
     
     this.showLoading = true;
-    this.chamadoService.criarChamado(this.files,chamado).subscribe(data => {
-      this.showLoading = false;
-      this.showMessageCreate = true;
-      this.showFormChamado = false;
-      this.showNovoChamado = true;
-    
-    },
-    (e) => {
-      this.showLoading = false;
-    });
+
+    if(chamado.noArquivo){
+      this.chamadoService.criarChamado(this.files,chamado).subscribe(data => {
+        this.showLoading = false;
+        this.showMessageCreate = true;
+        this.showFormChamado = false;
+        this.showNovoChamado = true;
+        
+      },
+      (e) => {
+        this.showLoading = false;
+      });
+    }
+
+    if(!chamado.noArquivo){
+      this.chamadoService.criarChamadoSemArquivo(chamado).subscribe(data => {
+        this.showLoading = false;
+        this.showMessageCreate = true;
+        this.showFormChamado = false;
+        this.showNovoChamado = true;
+        
+      },
+      (e) => {
+        this.showLoading = false;
+      });
+    }
   
   }
 
