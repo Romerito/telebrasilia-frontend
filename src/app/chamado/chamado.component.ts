@@ -46,6 +46,8 @@ export class ChamadoComponent implements OnInit {
   fileList!: string;
   nuProtocolo: any;
   tpChamado: any;
+
+  numeroPagina: number = 1;
   
   constructor(private formBuilder: FormBuilder, private router: Router, private chamadoService: ChamadoService) { }
 
@@ -180,6 +182,17 @@ export class ChamadoComponent implements OnInit {
   
   }
 
+  anterioPagina(numeroPagina: number){
+    this.numeroPagina -= 1;
+    this.consultarChamado();
+  }
+
+  proximaPagina(numeroPagina: number){
+    this.numeroPagina += 1;
+    this.consultarChamado();
+  }
+
+
 
   consultarChamado(){
     this.showMessageCreate = false;
@@ -189,6 +202,8 @@ export class ChamadoComponent implements OnInit {
     let chamado = new ChamadoDTOComponent();
     chamado.stProtocolo = this.chamadoForm.value.stProtocolo;
     chamado.nuProtocolo = this.chamadoForm.value.nuProtocolo;
+    chamado.pageNumber = this.numeroPagina;
+  
     
     this.chamadoService.consultarChamado(chamado).subscribe(data => {
       this.chamados = data.data;

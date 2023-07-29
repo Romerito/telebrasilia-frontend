@@ -10,4 +10,7 @@ export class ChamadoDTOComponent {
     nuProtocolo!: string;
     files!: string[];
     file!: FileList;
+    pageNumber!:number;
+    pageSize!:number;
+
 }

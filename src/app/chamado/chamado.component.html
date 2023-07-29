@@ -190,24 +190,28 @@
           </tbody>
 
       </table>
-<!-- 
+
       <nav aria-label="Paginas de chamados">
         <ul class="pagination">
-          <li class="page-item disabled">
-            <span class="page-link">Anterior</span>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item active" aria-current="page">
-            <span class="page-link">2</span>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
           <li class="page-item">
-            <a class="page-link" href="#">Próxima</a>
+            <button class="page-link"type="submit" (click)="anterioPagina(1)">Anterior</button>
+          </li>
+  
+      
+          <li class="page-item active" aria-current="page">
+            <span class="page-link">{{numeroPagina}}</span>
+          </li>
+      
+          <li class="page-item">
+            <a class="page-link" type="submit"(click)="proximaPagina(1)">Próxima</a>
           </li>
         </ul>
+
+  
+  
       </nav>
-     -->
-    
+     
+
     
     </div>
   </div>
