@@ -194,7 +194,7 @@
       <nav aria-label="Paginas de chamados">
         <ul class="pagination">
           <li class="page-item">
-            <button class="page-link"type="submit" (click)="anterioPagina(1)">Anterior</button>
+            <button class="page-link"type="submit" [disabled]="numeroPagina <= 1" (click)="anterioPagina(1)">Anterior</button>
           </li>
   
       
