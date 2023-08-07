@@ -176,6 +176,7 @@
               <td *ngIf="telebrasiliaLogado"> 
                 <button [disabled]="isFinalizado(chamado.stProtocolo)" type="submit" (click)="reponderChamado(chamado.nuProtocolo, chamado.tpChamado)" class="btn btn-link">{{chamado.nuProtocolo}} </button>
               </td>
+              
               <td *ngIf="!telebrasiliaLogado"> 
                   {{chamado.nuProtocolo}}
               </td>
