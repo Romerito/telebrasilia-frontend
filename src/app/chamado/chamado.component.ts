@@ -54,7 +54,7 @@ export class ChamadoComponent implements OnInit {
 
 
   isFinalizado(any: string){
-    let value: boolean = any === " Finalizado";
+    let value: boolean = any === "Finalizado";
     return value;
   }
 
