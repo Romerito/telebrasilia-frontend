@@ -8,7 +8,7 @@ import { ChamadoDTOComponent } from '../dtos/chamadoDTO.component';
 })
 export class ChamadoService {
 
-  apiUrl = "http://45.7.5.18:4200/api";
+  apiUrl = "http://45.7.5.18:8089/api";
 
   idEmpresa!: string;
 
