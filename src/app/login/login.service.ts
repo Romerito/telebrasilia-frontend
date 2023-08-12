@@ -9,7 +9,7 @@ import { LoginDTOComponent } from '../dtos/loginDTO.component';
 })
 export class LoginService {
 
-  apiUrl = "http://45.7.5.18:4200/api";
+  apiUrl = "http://45.7.5.18:8089/api";
 
 
   constructor(private httpClient: HttpClient) { }
