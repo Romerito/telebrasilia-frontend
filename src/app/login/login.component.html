@@ -13,16 +13,16 @@
             <div class="form-outline mb-4">
               <input type="text" id="cnpj" name="cnpj" class="form-control" maxlength="14"
                 placeholder="Digite o cnpj" formControlName="cnpj" (ngModelChange)="setCleanCnpj()" />
-                <label class="text-danger">{{cnpj}}</label>
+                <label class="text-danger"><strong> {{cnpj}} </strong></label>
             </div>
   
             <div class="form-outline mb-3">
               <input type="password" id="senha" name="senha" class="form-control"
                 placeholder="Digite a senha" formControlName="senha" (ngModelChange)="setCleanSenha()"/>
-                <label class="text-danger">{{senha}}</label>
+                <label class="text-danger"><strong> {{senha}} </strong></label>
             </div>
               <form #login="ngForm" (ngSubmit)="setForgotPassword()">
-                <button type="submit" class="btn btn-link">Esqueceu sua senha?</button>
+                <button type="submit" class="btn btn-link"><strong> Esqueceu sua senha? </strong></button>
               </form>
             <div class="row d-flex justify-content-center">
               <button type="submit" class="btn btn-primary">Entrar</button>
@@ -34,7 +34,7 @@
             <div class="form-outline mb-4" >
               <input type="text" id="cnpj" class="form-control" maxlength="14"
                 placeholder="Digite o cnpj" name="cnpj" formControlName="cnpj" (ngModelChange)="setCleanCnpj()">
-                <label class="text-danger">{{cnpj}}</label>
+                <label class="text-danger"><strong> {{cnpj}} </strong></label>
               </div>
               <div class="row d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary" style="padding-left: 11rem; padding-right: 11rem;">Enviar</button>
@@ -74,12 +74,12 @@
             <div class="form-outline mb-4">
               <input type="password" id="senha" name="senha" class="form-control form-control-lg"
                 placeholder="Digite a senha" formControlName="senha" (ngModelChange)="setCleanSenha()">
-                <label class="text-danger">{{senha}}</label>
+                <label class="text-danger"><strong> {{senha}} </strong></label>
             </div>
             <div class="form-outline mb-3">
               <input type="password" id="confirmarSenha" name="confirmarSenha" class="form-control form-control-lg"
                 placeholder="Repita a senha" formControlName="confirmarSenha" (ngModelChange)="setCleanConfirmarSenha()">
-                <label class="text-danger">{{confirmarSenha}}</label>
+                <label class="text-danger"><strong> {{confirmarSenha}} </strong></label>
             </div>
             <div class="text-center text-lg-start mt-4 pt-2">
               <button type="submit" class="btn btn-primary btn-lg"
