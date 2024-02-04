@@ -6,12 +6,12 @@
       <!-- chamado -->
       <div class="d-flex justify-content-center">
         <tr>
-          <td>
-            <form (ngSubmit)="novoChamado()" *ngIf="showNovoChamado">
+          <td  *ngIf="!telebrasiliaLogado">
+            <form (ngSubmit)="novo()" *ngIf="showNovoChamado">
               <div class="text-primary pt-4">
                 <button type="submit" class="btn btn-success btn float-right"
                   style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                  Novo Chamado</button>
+                  Novo</button>
               </div>
             </form>
           </td>
@@ -20,7 +20,7 @@
               <div class="text-primary pt-4">
                 <button type="submit" class="btn btn-success btn float-right"
                   style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                  Consultar Chamados</button>
+                  Consultar</button>
               </div>
             </form>
           </td>
@@ -28,7 +28,6 @@
       </div>
       <div class="col-md-8 col-lg-6 col-xl-8 offset-xl-0">
         <br>
-
         <div class="form-outline mb-4" *ngIf="showLoading">
           <div class="d-flex justify-content-center">
             <div class="spinner-border" role="status">
@@ -37,81 +36,151 @@
         </div>
 
         <!-- Criar chamado -->
-        <form [formGroup]="chamadoForm" (ngSubmit)="criarChamado()" method="post" enctype="multipart/form-data"
+        <form [formGroup]="chamadoForm" (ngSubmit)="criar()" method="post" enctype="multipart/form-data"
           *ngIf="showFormChamado">
+
           <div class="form-outline mb-2">
             <h6> <label for="tpChamado" class="form-label text-primary">Tipo do chamado</label></h6>
-
-            <select class="form-select" formControlName="tpChamado" (ngModelChange)="setCleanTitulo()">
+            <select id="tpChamado" class="form-select" formControlName="tpChamado" (ngModelChange)="setCleanTipo()">
               <option>Sem acesso</option>
               <option>Acesso lento</option>
               <option>Mudança de plano</option>
               <option>Mudança de endereço</option>
-              <option> Outros assuntos</option>
+              <option> Outros assuntos</option>
             </select>
-
           </div>
-          <label class="text-danger"><strong> {{titulo}} </strong></label>
+
+         <label class="text-danger"><strong> {{tipo}} </strong></label>
+
+        <div *ngIf="empresaDadosad != null && empresaDadosad.length > 0">
+          <div class="form-outline mb-2">
+            <h6> <label for="idEmprad" class="form-label text-primary">Localidade afetada</label></h6>
+            <select id="idEmprad" class="form-select" formControlName="idEmprad" (ngModelChange)="selecionarLocalidade($event)">
+              <option selected></option>
+              <option *ngFor="let dadosad of empresaDadosad" value="{{dadosad.idEmprad}}">{{dadosad.dsEndereco}} -
+                {{dadosad.ufInstal}} - {{dadosad.coCep}}</option>
+            </select>
+          </div>
+        
+          <label class="text-danger"><strong> {{idEmprad}} </strong></label>
+        
+          <div class="form-outline mb-2">
+            <h6> <label for="contato" class="form-label text-primary">Contato responsável técnico</label></h6>
+            <select id="contato" class="form-select" formControlName="contato" (ngModelChange)="selecionarContato()">
+              <option selected></option>
+              <option>{{empresaDadosadSelecionado}} </option>
+            </select>
+          </div>
+        </div>
+
+
+         <label class="text-danger"><strong> {{contato}} </strong></label>
+
           <div class="form-outline mb-2">
             <h6> <label for="descricao" class="form-label text-primary">Descrição do chamado</label></h6>
-            <textarea class="form-control" id="descricao" name="dsChamado" rows="6" formControlName="dsChamado"
-              (ngModelChange)="setCleanDescricao()"></textarea>
+            <textarea class="form-control" id="descricao" name="dsChamado" formControlName="dsChamado" rows="4"
+              maxlength="255" (ngModelChange)="setCleanDescricao()"></textarea>
           </div>
           <label class="text-danger"><strong> {{descricao}} </strong></label>
           <div>
-            <h6> <label for="arquivo" class="form-label text-primary">Anexar arquivo</label></h6>
+            <h6> <label for="noArquivo" class="form-label text-primary">Anexar arquivo</label></h6>
             <input class="form-control text-primary" id="noArquivo" type="file" (change)="setUploadFiles($event)"
               formControlName="noArquivo" multiple>
           </div>
-
           <div class="row d-flex justify-content-center text-center pt-4">
             <button type="submit" class="form-control btn btn-primary" [disabled]="showLoading"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">
-              Criar Chamado</button>
+              Criar </button>
           </div>
-
           <form (ngSubmit)="cancelar()">
             <div class="row d-flex justify-content-center text-center pt-4">
-              <button type="submit" class="btn btn-light" style="padding-left: 2.5rem; padding-right: 2.5rem;" [disabled]="showLoading">
+              <button type="submit" class="btn btn-light" style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                [disabled]="showLoading">
                 Cancelar</button>
-            </div>-
+            </div>
           </form>
         </form>
-
         <br>
         <div class="alert alert-success" role="alert" *ngIf="showMessageCreate">
           <h6 class="alert-heading">Chamado criado com com sucesso!</h6>
         </div>
-        
         <div class="alert alert-success" role="alert" *ngIf="showMessageRespondido">
           <h6 class="alert-heading">Chamado respondido com sucesso!</h6>
         </div>
-        
+
 
         <!-- Responder chamado -->
-        <form [formGroup]="chamadoForm" (ngSubmit)="respoderChamado()" 
-          *ngIf="showFormResponder">
-          <div class="form-outline mb-2">
-            <h6> <label for="stProtocolo" class="form-label text-primary">Status do chamado</label></h6>
+        <form [formGroup]="chamadoForm" (ngSubmit)="responder()" *ngIf="showFormResponder">
 
-            <select class="form-select" formControlName="stProtocolo" (ngModelChange)="setCleanStProtocolo()">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col" class="text-center">Data Abertura</th>
+                <th scope="col" class="text-center">Data Duração</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              <tr>
+                <td class="text-center">{{dataAbertura}}</td>
+                <td class="text-center">{{duracaoChamado}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div *ngIf="telebrasiliaLogado">
+            <h6> <label for="stProtocolo" class="form-label text-primary">Status do chamado </label></h6>
+            <select id="stProtocolo" class="form-select" formControlName="stProtocolo"
+              (ngModelChange)="setCleanStProtocolo()">
               <option value="Em execução">Em execução</option>
               <option value="Finalizado">Finalizado</option>
             </select>
+            <label class="text-danger"><strong>{{status}}</strong></label>
+          </div>
 
+          <div *ngIf="statusAtual === 'Em execução' && situacaoAtual === 'Não resolvido' && telebrasiliaLogado">
+            <div class="alert alert-danger blink" role="alert">
+              <strong>Caso o cliente não responder a Situação do chamado após o prazo, por favor selecione para fechar.
+              </strong>
+            </div>
+          
+            <h6> <label for="scChamado" class="form-label text-primary">Situação do chamado</label></h6>
+            <select id="scChamado" class="form-select" formControlName="scChamado" (ngModelChange)="setCleanScChamado()">
+              <option value="Resolvido">Resolvido</option>
+              <option value="Não resolvido">Não resolvido</option>
+            </select>
           </div>
-          <label class="text-danger"><strong>{{status}}</strong></label>
+          
+          <div *ngIf="!telebrasiliaLogado">
+            <h6> <label for="scChamado" class="form-label text-primary">Situação do chamado</label></h6>
+            <select id="scChamado" class="form-select" formControlName="scChamado"
+              (ngModelChange)="setCleanScChamado()">
+              <option value="Resolvido">Resolvido</option>
+              <option value="Não resolvido">Não resolvido</option>
+            </select>
+            <label class="text-danger"><strong>{{status}}</strong></label>
+          </div>
+
+
+          <input class="form-control" id="idChamado" name="idChamado" formControlName="idChamado" value="{{idChamado}}"
+            style="visibility: hidden;">
+
           <div class="form-outline mb-2">
-            <h6> <label for="descricao" class="form-label text-primary">Descrição</label></h6>
-            <textarea class="form-control" id="dsProtocolo" name="dsProtocolo" rows="6" formControlName="dsProtocolo"
-              (ngModelChange)="setCleanDescricao()"></textarea>
+            <h6> <label for="descricao" class="form-label text-primary">Descrição do chamado</label></h6>
+            <textarea class="form-control" id="descricao" name="dsChamado" rows="4" maxlength="255"
+              formControlName="dsChamado" (ngModelChange)="setCleanDescricao()"></textarea>
           </div>
-          <label class="text-danger"><strong> {{descricao}}</strong></label>
+          <label class="text-danger"><strong> {{descricao}} </strong></label>
+          <div>
+            <h6> <label for="arquivo" class="form-label text-primary">Anexar arquivo</label></h6>
+            <input class="form-control text-primary" id="arquivo" type="file" (change)="setUploadFiles($event)"
+              formControlName="noArquivo" multiple>
+          </div>
 
           <div class="row d-flex justify-content-center text-center pt-4">
             <button type="submit" class="form-control btn btn-primary"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">
-              Responder Chamado</button>
+              Responder</button>
           </div>
 
           <form (ngSubmit)="cancelar()">
@@ -120,103 +189,147 @@
                 Cancelar</button>
             </div>
           </form>
-        </form>
 
+          <div style="visibility: hidden;">
+            <input class="form-control" id="stProtocolo" name="stProtocolo" formControlName="stProtocolo"
+              value="Em execução">
+          </div>
+
+        </form>
       </div>
-      
     </div>
   </div>
- </section>
-<br>
-<br>
-<br>
+</section>
+
+
 <!-- Consultar chamado -->
-<section> 
-  <div  class="row d-flex justify-content-center align-items-center" *ngIf="listarChamado">
+<section>
+  <div class="row d-flex justify-content-center align-items-center" *ngIf="listarChamado">
     <div class="col-md-8">
-      
+
       <table class="table table-striped">
+
         <thead>
           <tr>
             <th scope="col">
               <div class="form-outline">
                 <form [formGroup]="chamadoForm" (change)="consultarChamado()">
-                <input type="search" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" formControlName="nuProtocolo" />
-              </form>
+                  <input type="search" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                    formControlName="nuProtocolo" />
+                </form>
               </div>
             </th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
             <th scope="col">
-              <form [formGroup]="chamadoForm" (change)="consultarChamado()">
-              <select  type="submit" class="form-select"class="form-select"   formControlName="stProtocolo">
-                <option [selected]="true">Selecione</option>
-                <option value="Aberto">Aberto</option>
-                <option value="Em execução">Em execução</option>
-                <option value="Finalizado">Finalizado</option>
-              </select>
-              
-              </form>
+              <div>
+                <form [formGroup]="chamadoForm" (change)="consultarChamado()">
+                  <select type="submit" class="form-select" formControlName="stProtocolo">
+                    <option [selected]="true">Selecione</option>
+                    <option value="Aberto">Aberto</option>
+                    <option value="Em execução">Em execução</option>
+                    <option value="Finalizado">Finalizado</option>
+                  </select>
+                </form>
+              </div>
             </th>
+            <th scope="col"></th>
           </tr>
         </thead>
+
         <thead>
           <tr>
             <th scope="col">Protocolo</th>
-            <th scope="col">Titulo</th>
-            <th scope="col">Descrição</th>
-            <th scope="col">Arquivo</th>
-            <th scope="col">Status</th>
+            <th scope="col" class="text-center">CNPJ</th>
+            <th scope="col" class="text-center">Tipo</th>
+            <th scope="col" class="text-center">Descrição</th>
+            <th scope="col" class="text-center">Arquivo</th>
+            <th scope="col" class="text-center">Data Abertura</th>
+            <th scope="col" class="text-center">Data Execução</th>
+            <th scope="col" class="text-center">Data Solução</th>
+            <th scope="col" class="text-center">Duração</th>
+            <th scope="col" class="text-center">Status</th>
+            <th scope="col" class="text-center">Situação</th>
           </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let chamado of chamados">
-              
-              <td *ngIf="telebrasiliaLogado"> 
-                <button [disabled]="isFinalizado(chamado.stProtocolo)" type="submit" (click)="reponderChamado(chamado.nuProtocolo, chamado.tpChamado)" class="btn btn-link">{{chamado.nuProtocolo}} </button>
-              </td>
-              
-              <td *ngIf="!telebrasiliaLogado"> 
-                  {{chamado.nuProtocolo}}
-              </td>
+          <tr *ngFor="let chamado of chamados">
 
-              <td>{{chamado.tpChamado}}</td>
-              <td>{{chamado.dsChamado}}</td>
-            
+            <td>
+              <button [disabled]="isFinalizado(chamado)" type="submit" (click)="protocoloSelecionado(chamado)"
+                class="btn btn-link">{{chamado.nuProtocolo}} </button>
+            </td>
+            <td>{{chamado.cnpj}}</td>
+            <td class="text-center col-2">{{chamado.tpChamado}}</td>
+            <td>
+              <div id="div4">{{chamado.dsChamado}}</div>
+            </td>
+            <td class="text-center col-2">
+              <button *ngFor="let file of chamado.files" [value]="file" type="submit"
+                (click)="carregarArquivo(chamado.idProtocolo, file)" class="btn btn-link"> {{file}} </button>
+            </td>
+           
+            <td class="text-center">
+              <div *ngIf="!chamado.dtAbertura">
+               <label>N/A</label>
+              </div>
+              <div *ngIf="chamado.dtAbertura">
+                {{chamado.dtAbertura}} {{chamado.hrExecucao}}
+              </div>
+            </td>
 
-              <td>
-                <button *ngFor="let file of chamado.files" [value]="file"  type="submit" (click)="charregarArquivo(chamado.nuProtocolo, file )"class="btn btn-link"> {{file}} </button>
-              </td>
+            <td class="text-center">
+              <div *ngIf="!chamado.dtExecucao">
+               <label>N/A</label>
+              </div>
+              <div *ngIf="chamado.dtExecucao">
+                {{chamado.dtExecucao}} {{chamado.hrExecucao}}
+              </div>
+            </td>
 
-              <td>{{chamado.stProtocolo}}</td>
-            </tr>
-          </tbody>
+            <td class="text-center">
+              <div *ngIf="!chamado.dtSolucao">
+               <label>N/A</label>
+              </div>
+              <div *ngIf="chamado.dtSolucao">
+                {{chamado.dtSolucao}} {{chamado.hrExecucao}}
+              </div>
+            </td>
 
+            <td class="text-center col-2">
+              <div *ngIf="!chamado.duracaoChamado">
+               <label>N/A</label>
+              </div>
+              <div *ngIf="chamado.duracaoChamado">
+                {{chamado.duracaoChamado}}
+              </div>
+            </td>
+
+            <td class="text-center col-2">{{chamado.stProtocolo}}</td>
+            <td class="text-center col-3">{{chamado.scChamado}}</td>
+          </tr>
+        </tbody>
       </table>
-
       <nav aria-label="Paginas de chamados">
         <ul class="pagination">
           <li class="page-item">
-            <button class="page-link"type="submit" [disabled]="numeroPagina <= 1" (click)="anterioPagina(1)">Anterior</button>
+            <button class="page-link" type="submit" [disabled]="numeroPagina <= 1"
+              (click)="anterioPagina(1)">Anterior</button>
           </li>
-  
-      
           <li class="page-item active" aria-current="page">
             <span class="page-link">{{numeroPagina}}</span>
           </li>
-      
           <li class="page-item">
-            <a class="page-link" type="submit"(click)="proximaPagina(1)">Próxima</a>
+            <a class="page-link" type="submit" (click)="proximaPagina(1)">Próxima</a>
           </li>
         </ul>
-
-  
-  
       </nav>
-     
-
-    
     </div>
   </div>
 </section>

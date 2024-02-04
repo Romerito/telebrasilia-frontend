@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   passwordReceveid!: string;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private service: LoginService, private chamadoService: ChamadoService) { }
- 
+
   ngOnInit() {
     this.createForm(new LoginDTOComponent());
   }
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       remeberme: new FormControl(login.remeberme)
     })
   }
-  
+
   onSubmit() {
     if(this.loginForm.value.cnpj == '' || this.loginForm.value.cnpj == null){
       if(this.loginForm.value.senha == '' || this.loginForm.value.senha == null){
@@ -116,7 +116,7 @@ export class LoginComponent implements OnInit {
 
   getPassword() {
     this.sendPassord = false;
-    
+
     if(this.loginForm.value.cnpj == '' || this.loginForm.value.cnpj == null){
       this.cnpj = 'Preecha o campo cnpj!';
       return;
@@ -134,7 +134,7 @@ export class LoginComponent implements OnInit {
       this.errorSendPassord = true;
     });
   }
-  
+
   setLogin() {
     this.login = true;
     this.forgotPassword = false;
