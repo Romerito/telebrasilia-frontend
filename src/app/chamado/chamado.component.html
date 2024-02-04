@@ -139,8 +139,8 @@
           </div>
 
           <div *ngIf="statusAtual === 'Em execução' && situacaoAtual === 'Não resolvido' && telebrasiliaLogado">
-            <div class="alert alert-danger blink" role="alert">
-              <strong>Caso o cliente não responder a Situação do chamado após o prazo, por favor selecione para fechar.
+            <div class="alert alert-danger" role="alert">
+              <strong>Caso o cliente não marque a situação do chamado como RESOLVIDO mesmo após a resolução do chamado, enviar ao mesmo uma solicitação para que o cliente marque a situação do chamado como RESOLVIDO. Em caso de falta de interação fechar o chamado com a situação do chamado como RESOLVIDO.
               </strong>
             </div>
           
@@ -202,10 +202,12 @@
 </section>
 
 
+
 <!-- Consultar chamado -->
+<div class="container-fluid h-custom">
 <section>
-  <div class="row d-flex justify-content-center align-items-center" *ngIf="listarChamado">
-    <div class="col-md-8">
+  <div class="row d-flex justify-content-center" *ngIf="listarChamado">
+    <div class="col-md-10">
 
       <table class="table table-striped">
 
@@ -316,6 +318,7 @@
           </tr>
         </tbody>
       </table>
+      
       <nav aria-label="Paginas de chamados">
         <ul class="pagination">
           <li class="page-item">
@@ -333,4 +336,5 @@
     </div>
   </div>
 </section>
+</div>
 <app-footer></app-footer>
